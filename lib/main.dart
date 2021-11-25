@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'presentation/home/home.dart';
+import 'presentation/home/widgets/slider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +17,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const HomeWidget(),
+      // home: const HomeWidget(),
+      home: const HomeSliderWidgetDemo(),
     );
   }
 }
