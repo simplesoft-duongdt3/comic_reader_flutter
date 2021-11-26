@@ -1,37 +1,16 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
-class SliderModel {
+class HomeSliderModel {
   final String thumbUrl;
 
-  const SliderModel(this.thumbUrl);
-}
-
-class HomeSliderWidgetDemo extends StatelessWidget {
-  const HomeSliderWidgetDemo({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          HomeSliderWidget(
-            models: const [
-              SliderModel("https://picsum.photos/600/400?id=1"),
-              SliderModel("https://picsum.photos/600/400?id=2"),
-              SliderModel("https://picsum.photos/600/400?id=3"),
-            ],
-            onSlideTap: (slide) {},
-          ),
-          const Text("HomeSliderWidgetDemo")
-        ],
-      ),
-    );
-  }
+  const HomeSliderModel(this.thumbUrl);
 }
 
 class HomeSliderWidget extends StatefulWidget {
-  final List<SliderModel> models;
-  final Function(SliderModel) onSlideTap;
+  final List<HomeSliderModel> models;
+  final Function(HomeSliderModel) onSlideTap;
 
   const HomeSliderWidget(
       {Key? key, required this.models, required this.onSlideTap})
@@ -45,13 +24,56 @@ class _HomeSliderWidgetState extends State<HomeSliderWidget> {
   final PageController _pageController = PageController(
     initialPage: 0,
     keepPage: true,
-    viewportFraction: 0.8,
+    viewportFraction: 0.9,
   );
+
+  late Timer timer;
+  int _changePage = 1;
+
+  @override
+  void initState() {
+    timer = Timer.periodic(const Duration(seconds: 5), (timer) {
+      _handleAutoScrolling();
+    });
+    super.initState();
+  }
+
+  void _handleAutoScrolling() {
+    if (widget.models.isNotEmpty) {
+      double? page = _pageController.page;
+      if (page != null) {
+        int pageInt = page.toInt();
+        bool isNotScrolling = pageInt.toDouble() == page;
+        if (isNotScrolling) {
+          var lastIndex = widget.models.length - 1;
+          if (pageInt == 0 || pageInt == lastIndex) {
+            _changePage *= -1;
+          }
+    
+          int nextPage = pageInt + _changePage;
+          if (nextPage > lastIndex) {
+            nextPage = 0;
+          }
+          _pageController.animateToPage(
+            nextPage,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeInOut,
+          );
+        }
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 300,
+      height: 200,
       child: PageView.builder(
         controller: _pageController,
         itemBuilder: (context, index) {
@@ -69,7 +91,7 @@ class _HomeSliderWidgetState extends State<HomeSliderWidget> {
 }
 
 class _SlidePageWidget extends StatelessWidget {
-  final SliderModel sliderModel;
+  final HomeSliderModel sliderModel;
   final PageController pageController;
   final int index;
 
@@ -88,12 +110,14 @@ class _SlidePageWidget extends StatelessWidget {
         animation: pageController,
         builder: (context, widget) {
           double value = 1;
+          double page = 0;
           if (pageController.position.haveDimensions) {
-            double page = pageController.page!;
-            double distance = (page - index).abs();
-            value = (1 - (distance * 0.3)).clamp(0.0, 1.0);
-            //print("pageController $index value $value distance $distance");
+            page = pageController.page!;
           }
+
+          double distance = (page - index).abs();
+            value = (1 - (distance * 0.2)).clamp(0.0, 1.0);
+            //print("pageController $index value $value distance $distance");
 
           double transform = Curves.easeIn.transform(value);
           //print("transform $transform");

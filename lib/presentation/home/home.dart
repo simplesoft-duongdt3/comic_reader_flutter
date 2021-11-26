@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'home_tab_home.dart';
+
 class HomeWidget extends StatefulWidget {
   const HomeWidget({Key? key}) : super(key: key);
 
@@ -21,12 +23,7 @@ class _HomeWidgetState extends State<HomeWidget> {
       body: PageView.builder(
         controller: _pageController,
         itemBuilder: (context, index) {
-          return Container(
-            color: _getColor(index),
-            child: Center(
-              child: Text("$index"),
-            ),
-          );
+          return const HomeTabHomeWidget();
         },
         itemCount: 3,
         onPageChanged: (index) {
@@ -38,18 +35,7 @@ class _HomeWidgetState extends State<HomeWidget> {
     );
   }
 
-  Color _getColor(int index) {
-    switch (index) {
-      case 0:
-        return Colors.amber;
-      case 1:
-        return Colors.blueGrey;
-      case 2:
-        return Colors.deepOrange;
-      default:
-        return Colors.white;
-    }
-  }
+
 
   BottomNavigationBar _buildBottomBar() {
     return BottomNavigationBar(
