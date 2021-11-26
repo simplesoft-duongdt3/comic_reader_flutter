@@ -37,19 +37,20 @@ class TitleThumbSquareWidget extends StatelessWidget {
               fit: BoxFit.fill,
             ),
           ),
-          Text(
-            titleThumbSquareModel.name,
-            maxLines: 1,
-            style: Theme.of(context).textTheme.bodyText1,
-            overflow: TextOverflow.ellipsis,
+          const SizedBox(
+            height: 4,
           ),
           Padding(
-            padding: const EdgeInsets.only(
-              left: 8.0,
-              right: 8.0,
-              bottom: 4.0,
-              top: 4.0,
+            padding: const EdgeInsets.only(left: 4, right: 4),
+            child: Text(
+              titleThumbSquareModel.name,
+              maxLines: 1,
+              style: Theme.of(context).textTheme.bodyText1,
+              overflow: TextOverflow.ellipsis,
             ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 4, right: 4),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -67,7 +68,10 @@ class TitleThumbSquareWidget extends StatelessWidget {
                 ),
               ],
             ),
-          )
+          ),
+          const SizedBox(
+            height: 4,
+          ),
         ],
       ),
     );
