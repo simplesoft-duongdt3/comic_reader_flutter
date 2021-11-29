@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'favorite_tab.dart';
+import 'history_tab.dart';
+
 class HomeTabLibraryWidget extends StatefulWidget {
   const HomeTabLibraryWidget({Key? key}) : super(key: key);
 
@@ -64,13 +67,9 @@ class _HomeTabLibraryWidgetState extends State<HomeTabLibraryWidget>
         ),
         Expanded(
           child: TabBarView(
-            children: [
-              Container(
-                color: Colors.amber,
-              ),
-              Container(
-                color: Colors.blueAccent,
-              ),
+            children: const[
+              HistoryTabWidget(),
+              FavoriteTabWidget(),
             ],
             controller: _tabController,
           ),

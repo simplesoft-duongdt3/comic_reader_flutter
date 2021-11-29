@@ -117,7 +117,7 @@ class _HomeTabHomeWidgetState extends State<HomeTabHomeWidget> {
         ],
       );
     } else {
-      return SizedBox.shrink();
+      return const SizedBox.shrink();
     }
   }
 

@@ -58,6 +58,9 @@ class TitleThumbSquareWidget extends StatelessWidget {
                   Icons.remove_red_eye,
                   color: Colors.red,
                 ),
+                const SizedBox(
+                  width: 4,
+                ),
                 Text(
                   titleThumbSquareModel.numCountText,
                   maxLines: 1,
