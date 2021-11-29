@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'home_tab_home.dart';
+import 'home_tab_library.dart';
 
 class HomeWidget extends StatefulWidget {
   const HomeWidget({Key? key}) : super(key: key);
@@ -23,7 +24,11 @@ class _HomeWidgetState extends State<HomeWidget> {
       body: PageView.builder(
         controller: _pageController,
         itemBuilder: (context, index) {
-          return const HomeTabHomeWidget();
+          if (index == 0) {
+            return const HomeTabHomeWidget();
+          } else {
+            return const HomeTabLibraryWidget();
+          }
         },
         itemCount: 3,
         onPageChanged: (index) {
@@ -34,8 +39,6 @@ class _HomeWidgetState extends State<HomeWidget> {
       ),
     );
   }
-
-
 
   BottomNavigationBar _buildBottomBar() {
     return BottomNavigationBar(
