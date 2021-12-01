@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'home_tab_home.dart';
 import 'home_tab_library.dart';
+import 'profile_tab.dart';
 
 class HomeWidget extends StatefulWidget {
   const HomeWidget({Key? key}) : super(key: key);
@@ -26,8 +27,10 @@ class _HomeWidgetState extends State<HomeWidget> {
         itemBuilder: (context, index) {
           if (index == 0) {
             return const HomeTabHomeWidget();
-          } else {
+          } else if (index == 1) {
             return const HomeTabLibraryWidget();
+          } else {
+            return const ProfileTabWidget();
           }
         },
         itemCount: 3,
